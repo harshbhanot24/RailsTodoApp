@@ -4,3 +4,4 @@
 <h3>Status <%= @todo.status%></h3>
 <h3>Group <%= @todo.group %></h3>
 <h3>Priority <%= @todo.priority %></h3>
+<h3>  <%=link_to "Back to Todo list", todos_path%> <td><%=link_to "edit this", edit_todo_path(@todo)%></td></h3>
