@@ -1,7 +1,36 @@
-<p>Hey this is the article </p>
-<h2>Title: <%=  @todo.title%><h2>
-<h3>Description: <%= @todo.title%></h3>
-<h3>Status <%= @todo.status%></h3>
-<h3>Group <%= @todo.group %></h3>
-<h3>Priority <%= @todo.priority %></h3>
-<h3>  <%=link_to "Back to Todo list", todos_path%> <td><%=link_to "edit this", edit_todo_path(@todo)%></td></h3>
+<div class='container'>
+<div class='row text-center'>
+<div class='col'>
+<% def setClass(p)
+    
+    if p==1
+    return 'text-white bg-danger'   
+    elsif p==2
+        return 'text-white  bg-info'
+    else
+        return 'bg-light'
+    end
+end
+%>
+<div class="card  mt-3 "  >
+<div class="card-header <%=setClass(@todo.priority)%>">
+    <h5 class="card-title"><%=  @todo.title%></h5>
+  </div>
+  <div class="card-body">
+    
+    <p class="card-text"><%=  @todo.description%></p>
+    <div class="card-footer">
+    <div class="row">
+      <div class='col'>Status:<%=@todo.status%></div>
+      <div class='col'>Group:<%=@todo.group%></div>
+      <div class='col'>Priority:<%=@todo.priority%></div>
+      <div class='col'>Completion date:<%=@todo.Completion_Date%></div>
+      </div>
+    <%=link_to "Back to Todo list", todos_path%>
+   <%if @todo.status!='completed'%><%=link_to "edit this", edit_todo_path(@todo)%>
+<%end%>
+    </div>
+</div>
+  </div>
+  </div>
+</div>

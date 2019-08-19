@@ -1,26 +1,123 @@
-<h1>Here is the list of all articles here
+<h1 class='text text-center card mb-3 p-3'>Here is the list of all articles here
 </h1>
-<h3>
+
+<div class='container-fluid m-2 mt-3'>
+<div class='row'>
+<div class='col-md-3 card bg-dark text-white  '>
+<ul class="list-group">
+  <li class="list-group-item active">Todays Task</li>
+  <% @todos.each do |todo|%>
+<% if Date.parse(todo.Completion_Date.to_s) == Date.today  %>
+  <li class="list-group-item <%=setClass(todo.priority)%>"><%=todo.title%></li>  
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3 class='text text-center '>Quick links</h3>
+<h4 class='text text-center '>
 <%= link_to "Create new Todo item" , new_todo_path%>
-</h3>
-<table>
+</h4>
+</div>
+<div class='col-md-9'>
+<table class="table table-striped ">
+<thead class="thead-dark">
     <tr>
         <th>Title</th>
         <th>Description</th>
         <th>status</th>
         <th>group</th>
         <th>priority</th>
+        <th colspan="3" class='text text-center'>Actions</th>
+        <th>DeadLine</th>
     </tr>
+    </thead>
+    <% def setClass(p)
+    
+    if p==1
+    return 'text-white table-danger'   
+    elsif p==2
+        return 'text-white  table-info'
+    else
+        return 'text-dark  table-light'
+    end
+end
+%>
+<% 
+    def priority(p)
+    if p==1
+        return 'high'
+    elsif p==2
+        return 'medium'
+    else
+        return 'low'
+    end
+
+    end
+
+%>
 <% @todos.each do |todo|%>
-    <tr>
+    <tr class="<%=setClass(todo.priority)%>">
         <td><%=todo.title%></td>
-        <td><%=todo.description%></td>
+        <td><%=todo.description.truncate(15)%></td>
         <td><%=todo.status%></td>
         <td><%=todo.group%></td>
-        <td><%=todo.priority%></td>
-        <td><%=link_to "edit", edit_todo_path(todo)%></td>
+        <td><%=priority(todo.priority)%></td>
+        <td><%if todo.status!='completed'%><%=link_to "edit", edit_todo_path(todo)%>
+        <%end%>
+        </td>
          <td><%=link_to "show", todo_path(todo)%></td>
+
+         <td><%=link_to "Delete", todo_path(todo), method: :delete,data: {confirm: "are you sure?"} %></td>
+         <td><%=todo.Completion_Date%></td>
     </tr>
+<%end%>
+</table>
+</div>
+<%# end of col-md-9 %>
+
+Your todays task are <i class="fa fa-check"></i>
+<table class="table table-striped ">
+<thead class="thead-dark">
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>status</th>
+        <th>group</th>
+        <th>priority</th>
+        <th colspan="3" class='text text-center'>Actions</th>
+        <th>DeadLine</th>
+    </tr>
+    </thead>
+<% @todos.each do |todo|%>
+<% if Date.parse(todo.Completion_Date.to_s) == Date.today  %>
+    <tr class="<%=setClass(todo.priority)%>">
+        <td><%=todo.title%></td>
+        <td><%=todo.description.truncate(15)%></td>
+        <td><%=todo.status%></td>
+        <td><%=todo.group%></td>
+        <td><%=priority(todo.priority)%></td>
+        <td><%if todo.status!='completed'%><%=link_to "edit", edit_todo_path(todo)%>
+        <%end%>
+        </td>
+         <td><%=link_to "show", todo_path(todo)%></td>
+
+         <td><%=link_to "Delete", todo_path(todo), method: :delete,data: {confirm: "are you sure?"} %></td>
+         <td><%=todo.Completion_Date%></td>
+    </tr>
+    <%end%>
 <%end%>
 
 </table>
+</div>
+</div>
+</div>

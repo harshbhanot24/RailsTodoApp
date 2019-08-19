@@ -1,0 +1,50 @@
+
+<% if @todo.errors.any?%>
+<h4 class='text text-danger'>folllowing problems need to be resolved</h4>
+<ul class="list-group">
+<% @todo.errors.full_messages.each do |msg|%>
+<li class="list-group-item text-danger text" ><small><%=msg%></small></li>
+<%end%>
+</ul>
+<%end%>
+
+<div class="row">
+<div class="col-md-12">
+<%= form_for @todo ,class: "nifty_form" do |f| %>
+<div class="form-group">
+<%= f.label :title %>
+  <%= f.text_field :title ,class: 'form-control'%>
+  </div>
+  <div class="form-group">
+  <%= f.label :description %> 
+  <%= f.text_area :description ,class: 'form-control' %>
+
+</div>
+<div class="form-group">
+ <%= f.label :status %>&nbsp;
+ <%= select(:todo, :status, [['yet-to-start', 'yet-to-start'], ['in-progress', 'in-progress'], ['completed','completed'],['archieve','archieve']],{}, {:class => 'form-control'}) %>
+
+
+  </div>
+  <div class="form-group">
+
+<%= f.label :group %>
+<%= select(:todo, :group, [ ['home','home'],['office','office'],['others','others']],{}, {:class => 'form-control'}) %>
+
+</div>
+<div class="form-group">
+<%= f.label :priority %> 
+<%= select(:todo, :priority, [ ['high',1],['medium',2],['low',3]],{}, {:class => 'form-control'}) %>
+ 
+ </div>
+<div class='form-group'>
+<%=date_field("todo", "Completion_Date")%>
+</div>
+<%= f.submit %> 
+<% end %>
+<h3 class='text text-center'>  <%=link_to "Back to Todo list", todos_path%></h3>
+</div>
+
+
+
+</div>

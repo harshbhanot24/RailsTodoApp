@@ -9,8 +9,9 @@ class TodosController < ApplicationController
     end
     def create
      @todo= Todo.new(todo_params)
+     @todo.priority=@todo.priority.to_i
      if @todo.save
-      flash[:notice]="Your todo item was saved"
+      flash[:notice]="Your todo item was saved #{@todo.Completion_Date}"
       redirect_to todo_path(@todo) 
      
       else
@@ -33,8 +34,14 @@ class TodosController < ApplicationController
      render :edit
    end
   end
+  def destroy
+  @todo=Todo.find(params[:id])
+  @todo.destroy
+  flash[:notice]="the item was sucessfully deleted"
+  redirect_to todos_path(@todo) 
+  end
     private
     def todo_params
-      params.require(:todo).permit(:title, :description, :status , :group, :priority)
+      params.require(:todo).permit(:title, :description, :status , :group, :priority, :Completion_Date)
       end
 end
