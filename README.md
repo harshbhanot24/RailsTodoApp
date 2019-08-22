@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Basic Features
+* User can add a task with description and other metadata info.
+* User can see all the tasks created by him
+* User can mark a task as completed or even archive the task
+* User can see a particular task and its info
+* User can update the task
+* User cannot update the task when it is completed or archived.
 
-Things you may want to cover:
+## Intermediate feature
+* User can set the priority of any task
+* dashboard with today's tasks and future tasks grouped separately
+* User should be able to group the tasks into lists such as - home, office etc
 
-* Ruby version
+## Extra features
+### User dentify the task category and show proper icon in the index(listing) page
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
