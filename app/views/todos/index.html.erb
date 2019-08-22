@@ -1,47 +1,6 @@
-<h1 class='text text-center card mb-3 p-3'>Here is the list of all articles here
-</h1>
-
-<div class='container-fluid m-2 mt-3'>
-<div class='row'>
-<div class='col-md-3 card bg-dark text-white  '>
-<ul class="list-group">
-  <li class="list-group-item active">Todays Task</li>
-  <% @todos.each do |todo|%>
-<% if Date.parse(todo.Completion_Date.to_s) == Date.today  %>
-  <li class="list-group-item <%=setClass(todo.priority)%>"><%=todo.title%></li>  
-</ul>
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h3 class='text text-center '>Quick links</h3>
-<h4 class='text text-center '>
-<%= link_to "Create new Todo item" , new_todo_path%>
-</h4>
-</div>
-<div class='col-md-9'>
-<table class="table table-striped ">
-<thead class="thead-dark">
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>status</th>
-        <th>group</th>
-        <th>priority</th>
-        <th colspan="3" class='text text-center'>Actions</th>
-        <th>DeadLine</th>
-    </tr>
-    </thead>
-    <% def setClass(p)
+<% def setClass(p)
     
     if p==1
     return 'text-white table-danger'   
@@ -52,6 +11,7 @@
     end
 end
 %>
+
 <% 
     def priority(p)
     if p==1
@@ -65,27 +25,41 @@ end
     end
 
 %>
-<% @todos.each do |todo|%>
-    <tr class="<%=setClass(todo.priority)%>">
-        <td><%=todo.title%></td>
-        <td><%=todo.description.truncate(15)%></td>
-        <td><%=todo.status%></td>
-        <td><%=todo.group%></td>
-        <td><%=priority(todo.priority)%></td>
-        <td><%if todo.status!='completed'%><%=link_to "edit", edit_todo_path(todo)%>
-        <%end%>
-        </td>
-         <td><%=link_to "show", todo_path(todo)%></td>
+<%
+    def setTime(s)
+    if s=='yet-to-start' || s=='in-progress'
+    return 'fa-spinner'        
+    else
+    return  'fa-check-circle'        
+    end
+end
+%>
+<%# ___________________________end of functions_________________________________ %>
+<h1 class='text text-center card mb-3 p-3'><i class="fa fa-exclamation text-danger">Here is the list of all TASK </i>
+</h1>
 
-         <td><%=link_to "Delete", todo_path(todo), method: :delete,data: {confirm: "are you sure?"} %></td>
-         <td><%=todo.Completion_Date%></td>
-    </tr>
+<div class='container-fluid m-2 mt-3'>
+<div class='row'>
+<div class='col-md-3 text-white'>
+<ul class="list-group">
+  <li class="list-group-item active"><strong>Todays Task</strong></li>
+  <% @todos.each do |todo|%>
+<% if Date.parse(todo.Completion_Date.to_s) != Date.today  %>
+  <li class="list-group-item <%=setClass(todo.priority)%>"> <h5 class='text-dark'>
+  <i class="fa <%=setTime(todo.status)%>"></i>
+  <%=todo.title%>
+  <%if todo.priority==1%>
+    <i class="fa fa-exclamation text-danger"></i>
+  <%end%>
+  </h5>
+  </li>  
+</ul>
 <%end%>
-</table>
-</div>
-<%# end of col-md-9 %>
+<%end%>
 
-Your todays task are <i class="fa fa-check"></i>
+</div>
+<%# end of div small 3 %>
+<div class='col-md-9'>
 <table class="table table-striped ">
 <thead class="thead-dark">
     <tr>
@@ -98,26 +72,47 @@ Your todays task are <i class="fa fa-check"></i>
         <th>DeadLine</th>
     </tr>
     </thead>
+    
+
 <% @todos.each do |todo|%>
-<% if Date.parse(todo.Completion_Date.to_s) == Date.today  %>
     <tr class="<%=setClass(todo.priority)%>">
         <td><%=todo.title%></td>
         <td><%=todo.description.truncate(15)%></td>
         <td><%=todo.status%></td>
         <td><%=todo.group%></td>
         <td><%=priority(todo.priority)%></td>
-        <td><%if todo.status!='completed'%><%=link_to "edit", edit_todo_path(todo)%>
-        <%end%>
-        </td>
-         <td><%=link_to "show", todo_path(todo)%></td>
+        <td><%if todo.status!='completed' || todo.status!='archieved'%>
+       
+        <%= link_to edit_todo_path(todo)  do %>
+             <i class="fa  fa-edit"></i>
+        <% end %>
 
-         <td><%=link_to "Delete", todo_path(todo), method: :delete,data: {confirm: "are you sure?"} %></td>
+       <%end %>
+        </td>
+         <td>
+         <%= link_to todo_path(todo)  do %>
+             <i class="fa  fa-eye"></i>
+        <% end %>
+         
+         
+         </td>
+
+         <td><%=link_to todo_path(todo), method: :delete,data: {confirm: "are you sure?"} do%>
+         <i class="fa  fa-trash"></i>
+         <%end%>
+         </td>
          <td><%=todo.Completion_Date%></td>
     </tr>
-    <%end%>
+    
 <%end%>
-
+<tr>
+    <td colspan=" 9" class="text text-right">
+    <%= link_to  new_todo_path do%>
+    <small>Add New <i class="fa fa-plus"></i></small>
+    <%end%>
+    </td>
+    </tr>
 </table>
 </div>
-</div>
-</div>
+<%# end of col-md-9 %>
+

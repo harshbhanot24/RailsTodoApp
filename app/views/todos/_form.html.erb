@@ -38,11 +38,16 @@
  
  </div>
 <div class='form-group'>
+<%= f.label :Completion_Date %> 
 <%=date_field("todo", "Completion_Date")%>
 </div>
-<%= f.submit %> 
+<div class='btn btn-success'><%= f.submit %></div> 
 <% end %>
-<h3 class='text text-center'>  <%=link_to "Back to Todo list", todos_path%></h3>
+<h3 class='text text-center'>  <%=link_to todos_path do%>
+<span>Back </span>
+<i class="fa fa-undo"></i>
+<%end%>
+</h3>
 </div>
 
 

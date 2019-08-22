@@ -1,7 +1,7 @@
 class Todo < ApplicationRecord
     # def expiration_date_cannot_be_in_the_past
-    #     if Completion_date.present? && Completion_date < Date.today
-    #       errors.add(:Completion_date, "can't be in the past")
+    #     if Completion_Date.present? && todo.Completion_Date < Date.today
+    #       errors.add(:Completion_Date, "can't be in the past")
     #     end
     #   end    
     
@@ -14,6 +14,5 @@ validates :priority, presence: true ,numericality: { only_integer: true }
 # validates :Completion_date, presence:true ,expiration_date_cannot_be_in_the_past:true =>"error"
 # validate :expiration_date_cannot_be_in_the_past 
     
-
 
 end 

@@ -26,8 +26,15 @@ end
       <div class='col'>Priority:<%=@todo.priority%></div>
       <div class='col'>Completion date:<%=@todo.Completion_Date%></div>
       </div>
-    <%=link_to "Back to Todo list", todos_path%>
-   <%if @todo.status!='completed'%><%=link_to "edit this", edit_todo_path(@todo)%>
+       <%=link_to todos_path do%>
+<span>Back </span>
+<i class="fa fa-undo"></i>
+<%end%>
+   <%if @todo.status!='completed' || @todo.status!='archieved'%>|
+   <%=link_to edit_todo_path(@todo) do%>
+   <span>edit</span>
+   <i class ='fa fa-edit'></i>
+   <%end%>
 <%end%>
     </div>
 </div>

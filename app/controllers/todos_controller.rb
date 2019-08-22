@@ -1,4 +1,6 @@
 class TodosController < ApplicationController
+
+  before_action :set_todo, only: [:show, :edit]
     def new
         @todo = Todo.new
       end
@@ -19,10 +21,10 @@ class TodosController < ApplicationController
     end
   end
   def show
-    @todo =Todo.find(params[:id]) 
+  
   end
   def edit
-    @todo =Todo.find(params[:id]) 
+  
   end
   def update
     @todo= Todo.find(params[:id]) 
@@ -43,5 +45,9 @@ class TodosController < ApplicationController
     private
     def todo_params
       params.require(:todo).permit(:title, :description, :status , :group, :priority, :Completion_Date)
+      end
+
+      def set_todo
+        @todo = Todo.find(params[:id])
       end
 end
